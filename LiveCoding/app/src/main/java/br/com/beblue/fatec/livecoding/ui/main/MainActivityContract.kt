@@ -8,7 +8,7 @@ interface MainActivityContract {
 
     interface View {
 
-        fun showToast(message: String)
+        fun showActivityRead()
 
     }
 
@@ -16,15 +16,9 @@ interface MainActivityContract {
 
         fun start()
 
-        fun onStart()
-
-        fun onResume()
-
-        fun onPause()
-
-        fun onStop()
-
         fun onDestroy()
+
+        fun onClickFab()
 
     }
 

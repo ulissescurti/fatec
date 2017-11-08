@@ -1,9 +1,8 @@
 package br.com.beblue.fatec.livecoding.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import br.com.beblue.fatec.livecoding.R
 import br.com.beblue.fatec.livecoding.network.ApiManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,8 +17,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            mPresenter.onClickFab()
         }
 
         mPresenter = MainActivityPresenter(this, ApiManager.getInstance())
@@ -30,8 +28,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     /*
         Contract
      */
-    override fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    override fun showActivityRead() {
+        val intent = Intent(this, ReadActivity::class.java)
+        startActivity(intent)
     }
 
 }
