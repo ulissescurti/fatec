@@ -1,5 +1,7 @@
 package br.com.beblue.fatec.livecoding.ui.main
 
+import br.com.beblue.fatec.livecoding.db.DBManager
+import br.com.beblue.fatec.livecoding.domain.Coupon
 import br.com.beblue.fatec.livecoding.network.ApiManager
 
 /**
@@ -14,7 +16,7 @@ class MainActivityPresenter(private var mView: MainActivityContract.View?,
         Contract
      */
     override fun start() {
-
+        getCompanyList()
     }
 
     override fun onDestroy() {
@@ -26,7 +28,6 @@ class MainActivityPresenter(private var mView: MainActivityContract.View?,
     }
 
     private fun getCompanyList() {
-
-        mView?.loadCompanyRecyclerView(null)
+        mView?.loadCompanyRecyclerView(DBManager.listAll(Coupon::class.java) as List<Coupon>?)
     }
 }

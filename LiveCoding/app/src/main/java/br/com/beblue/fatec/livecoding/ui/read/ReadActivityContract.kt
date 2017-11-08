@@ -1,4 +1,4 @@
-package br.com.beblue.fatec.livecoding.ui.main
+package br.com.beblue.fatec.livecoding.ui.read
 
 /**
  * Created by Rafael on 07/11/2017.

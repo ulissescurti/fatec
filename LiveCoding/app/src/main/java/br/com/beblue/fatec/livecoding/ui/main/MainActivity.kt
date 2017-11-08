@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import br.com.beblue.fatec.livecoding.R
 import br.com.beblue.fatec.livecoding.domain.Company
+import br.com.beblue.fatec.livecoding.domain.Coupon
 import br.com.beblue.fatec.livecoding.network.ApiManager
 import br.com.beblue.fatec.livecoding.ui.main.adapter.CompanyAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,14 +16,14 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
     private lateinit var mPresenter: MainActivityContract.Presenter
 
+    var adapter : CompanyAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            mPresenter.onClickFab()
-        }
+        fab.setOnClickListener { view -> mPresenter.onClickFab() }
 
         mPresenter = MainActivityPresenter(this, ApiManager.getInstance())
         mPresenter.start()
@@ -33,17 +34,19 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         Contract
      */
     override fun showActivityRead() {
-        val intent = Intent(this, ReadActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(Intent(this, ReadActivity::class.java), 666)
     }
 
-    override fun loadCompanyRecyclerView(cnpjList: List<Company>?) {
-
+    override fun loadCompanyRecyclerView(cnpjList: List<Coupon>?) {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerCompany.layoutManager = layoutManager
 
-        val adapter = CompanyAdapter(cnpjList)
+        adapter = CompanyAdapter(cnpjList)
         recyclerCompany.adapter = adapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        adapter?.notifyDataSetChanged()
     }
 }

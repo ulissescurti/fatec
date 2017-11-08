@@ -1,7 +1,11 @@
 package br.com.beblue.fatec.livecoding.ui.main
 
+import android.widget.Toast
+import br.com.beblue.fatec.livecoding.db.DBManager
 import br.com.beblue.fatec.livecoding.domain.Company
+import br.com.beblue.fatec.livecoding.domain.Coupon
 import br.com.beblue.fatec.livecoding.network.ApiManager
+import br.com.beblue.fatec.livecoding.ui.read.ReadActivityContract
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,6 +17,7 @@ import retrofit2.Response
 class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
                             private var mApiManager: ApiManager) : ReadActivityContract.Presenter {
 
+    var c : Coupon? = null
 
     /*
         Contract
@@ -57,8 +62,21 @@ class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
     }
 
     override fun onReadQRCode(text: String?) {
-        mView?.showToast(text!!);
         mView?.stopCamera()
+
+        val split = text?.replace("CFe", "")?.split("|")
+
+        if(split?.size != null){
+            c = Coupon()
+            c?.key = split[0]
+            c?.date = split[1]
+            c?.amount = split[2].toFloat()
+            c?.cpf = split[3]
+
+            searchCompany(c?.key?.substring(6,20)!!)
+            return
+        }
+
         mView?.closeActivity()
     }
 
@@ -74,7 +92,7 @@ class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
         // Verifica se já possui permissão
         if (mView!!.hasPermission()) {
             mView?.startCamera()
-            return;
+            return
         }
 
 //        // Verifica se deve justificar a permissão
@@ -96,7 +114,7 @@ class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
         service.getCompany(cnpj).enqueue(object : Callback<Company> {
 
             override fun onFailure(call: Call<Company>?, t: Throwable?) {
-
+                mView?.showToast("Falha")
             }
 
             override fun onResponse(call: Call<Company>?, response: Response<Company>?) {
@@ -106,7 +124,14 @@ class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
     }
 
     fun onSuccess(response: Response<Company>?) {
-        mView?.showToast(response!!.body().atividadePrincipal!![0].descricao!!)
+        val o = Company();
+        o.nome = response!!.body().nome!!
+
+        c?.company = o
+
+        DBManager.insert(c)
+        mView?.showToast("Cupom registrado.")
+        mView?.closeActivity()
     }
 
 }

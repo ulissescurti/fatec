@@ -1,24 +1,24 @@
 package br.com.beblue.fatec.livecoding.ui.main.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import br.com.beblue.fatec.livecoding.domain.Company
-import android.view.LayoutInflater
 import br.com.beblue.fatec.livecoding.R
+import br.com.beblue.fatec.livecoding.domain.Coupon
 
 
 /**
  * Created by viking on 08/11/17.
  */
-class CompanyAdapter(private var companyList : List<Company>?) : RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder>() {
+class CompanyAdapter(private var companyList : List<Coupon>?) : RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder>() {
 
     override fun onBindViewHolder(holder: CompanyViewHolder?, position: Int) {
 
         val company = companyList?.get(position)
 
-        holder?.companyName?.text = company?.nome
+        holder?.companyName?.text = company?.uuid
     }
 
     override fun getItemCount(): Int {

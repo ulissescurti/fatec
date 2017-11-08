@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import br.com.beblue.fatec.livecoding.R
 import br.com.beblue.fatec.livecoding.network.ApiManager
+import br.com.beblue.fatec.livecoding.ui.read.ReadActivityContract
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import kotlinx.android.synthetic.main.activity_read.*
@@ -110,6 +111,7 @@ class ReadActivity : AppCompatActivity(), ReadActivityContract.View, ZXingScanne
 
         mScannerView?.stopCamera()
     }
+
 
     /*
         Callback
