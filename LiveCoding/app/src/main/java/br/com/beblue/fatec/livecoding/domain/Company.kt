@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by viking on 07/11/17.
  */
-class Cnpj {
+class Company {
 
     var nome : String? = null
     var situacao : String? = null

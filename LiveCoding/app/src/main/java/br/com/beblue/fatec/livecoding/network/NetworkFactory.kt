@@ -11,8 +11,9 @@ import java.util.concurrent.TimeUnit
  * Created by viking on 07/11/17.
  */
 class NetworkFactory {
+
     companion object {
-        fun <S> createService(serviceClass : Class<S>): S {
+        fun <S> createService(serviceClass: Class<S>): S {
 
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -33,4 +34,5 @@ class NetworkFactory {
             return retrofit.create(serviceClass)
         }
     }
+
 }
