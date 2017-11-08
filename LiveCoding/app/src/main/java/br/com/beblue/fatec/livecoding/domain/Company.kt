@@ -10,6 +10,7 @@ open class Company : RealmObject() {
     var nome : String? = null
     var situacao : String? = null
     var telefone : String? = null
+
 //    @SerializedName("atividade_principal") var atividadePrincipal : List<AtividadePrincipal>? = null
 //
 //    class AtividadePrincipal : RealmObject() {

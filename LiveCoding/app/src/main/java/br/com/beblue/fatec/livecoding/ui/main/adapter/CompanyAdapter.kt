@@ -12,27 +12,32 @@ import br.com.beblue.fatec.livecoding.domain.Coupon
 /**
  * Created by viking on 08/11/17.
  */
-class CompanyAdapter(private var companyList : List<Coupon>?) : RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder>() {
+class CompanyAdapter(private var couponList: List<Coupon>?) : RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder>() {
 
     override fun onBindViewHolder(holder: CompanyViewHolder?, position: Int) {
 
-        val company = companyList?.get(position)
+        val company = couponList?.get(position)
 
-        holder?.companyName?.text = company?.uuid
+        holder?.qrCode?.text = company?.key
+        holder?.companyName?.text = company?.company?.nome
+        holder?.companyPhone?.text = company?.company?.telefone
     }
 
     override fun getItemCount(): Int {
-        return companyList?.size!!
+        return couponList?.size!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CompanyViewHolder {
-        val v = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.company_list_item, parent, false)
+        val v = LayoutInflater.from(parent?.context).inflate(R.layout.company_list_item, parent, false)
         return CompanyViewHolder(v)
     }
 
     class CompanyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
+        var qrCode = itemView?.findViewById<TextView>(R.id.textViewQrCode)
         var companyName = itemView?.findViewById<TextView>(R.id.textViewCompanyName)
+        var companyPhone = itemView?.findViewById<TextView>(R.id.textViewCompanyPhone)
+
     }
+
 }
