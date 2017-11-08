@@ -10,6 +10,20 @@ interface ReadActivityContract {
 
         fun showToast(message: String)
 
+        fun hasPermission(): Boolean
+
+        fun requestPermissionRationale(): Boolean
+
+        fun requestPermission()
+
+        fun closeActivity()
+
+        fun showPermissionRationale()
+
+        fun startCamera()
+
+        fun stopCamera()
+
     }
 
     interface Presenter {
@@ -25,6 +39,12 @@ interface ReadActivityContract {
         fun onStop()
 
         fun onDestroy()
+
+        fun onPermissionGranted()
+
+        fun onPermissionDenied()
+
+        fun onReadQRCode(text: String?)
 
     }
 

@@ -18,7 +18,9 @@ class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
         Contract
      */
     override fun start() {
-        searchCnpj("27815245000123")
+//        searchCnpj("27815245000123")
+
+        checkPermissions();
     }
 
     override fun onStart() {
@@ -38,14 +40,57 @@ class ReadActivityPresenter(private var mView: ReadActivityContract.View?,
     }
 
     override fun onDestroy() {
+        mView?.stopCamera()
+        mView = null
+    }
 
+    override fun onPermissionGranted() {
+        mView?.startCamera()
+    }
+
+    override fun onPermissionDenied() {
+//        if (mView!!.requestPermissionRationale()) {
+//            mView?.showPermissionRationale();
+//        } else {
+        mView?.closeActivity()
+//        }
+    }
+
+    override fun onReadQRCode(text: String?) {
+        mView?.showToast(text!!);
+        mView?.stopCamera()
+        mView?.closeActivity()
     }
 
 
     /*
         Util
      */
-    fun searchCnpj(cnpj: String) {
+    private fun checkPermissions() {
+        if (mView == null) {
+            return
+        }
+
+        // Verifica se já possui permissão
+        if (mView!!.hasPermission()) {
+            mView?.startCamera()
+            return;
+        }
+
+//        // Verifica se deve justificar a permissão
+//        if (mView!!.requestPermissionRationale()) {
+//            return;
+//        }
+
+        // Requisita a permissão
+        mView?.requestPermission()
+    }
+
+
+    /*
+        Company request
+     */
+    fun searchCompany(cnpj: String) {
         val service = mApiManager.getCompanyService()
 
         service.getCompany(cnpj).enqueue(object : Callback<Company> {
