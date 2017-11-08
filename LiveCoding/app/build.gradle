@@ -40,4 +40,7 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$okhttp_version"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
+    // QR Code
+    compile 'me.dm7.barcodescanner:zxing:1.9.3'
+
 }
