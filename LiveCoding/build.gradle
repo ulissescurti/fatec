@@ -21,14 +21,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-
-        maven {
-            credentials {
-                username "android"
-                password "mortadela1"
-            }
-            url "http://192.168.0.198:8081/artifactory/libs-release-local"
-        }
     }
 }
 

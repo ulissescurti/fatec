@@ -40,5 +40,4 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$okhttp_version"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
-    compile "br.com.beblue.custom:custom:1.0.0"
 }
