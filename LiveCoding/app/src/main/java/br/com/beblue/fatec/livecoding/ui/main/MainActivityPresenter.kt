@@ -25,4 +25,8 @@ class MainActivityPresenter(private var mView: MainActivityContract.View?,
         mView?.showActivityRead()
     }
 
+    private fun getCompanyList() {
+
+        mView?.loadCompanyRecyclerView(null)
+    }
 }
